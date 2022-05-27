@@ -15,8 +15,8 @@ class FoodCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.all(5),
-      height: 240,
       width: 195,
+      height: 240,
       child: GestureDetector(
         onTap: onPressed,
         child: Stack(
@@ -26,9 +26,10 @@ class FoodCard extends StatelessWidget {
               borderRadius: BorderRadius.circular(10),
               clipBehavior: Clip.hardEdge,
               child: CachedNetworkImage(
-                imageUrl: food.imageUri,
-                fit: BoxFit.cover,
                 errorWidget: (_, __, ___) => Container(color: Colors.grey),
+                fit: BoxFit.cover,
+                height: 240,
+                imageUrl: food.imageUri,
               ),
             ),
             Container(
