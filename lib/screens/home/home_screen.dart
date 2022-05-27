@@ -1,6 +1,8 @@
+import 'package:delivery_app/screens/home/blocs/foods_bloc/foods_cubit.dart';
+import 'package:delivery_app/screens/home/blocs/foods_bloc/foods_state.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../models/food_data.dart';
 import '../detail/food_detail.dart';
 import 'widgets/bottom_nav_bar.dart';
 import 'widgets/food_card.dart';
@@ -57,28 +59,46 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: SizedBox(
-                height: 250,
-                child: ListView.builder(
-                  itemCount: foods.length,
-                  itemBuilder: (context, index) => FoodCard(
-                    food: foods[index],
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => FoodDetail(
-                            food: foods[index],
-                          ),
+            BlocBuilder<FoodsCubit, FoodsState>(
+              builder: (context, state) {
+                if (state is FoodsLoaded) {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: SizedBox(
+                      height: 250,
+                      child: ListView.builder(
+                        itemCount: state.foods.length,
+                        itemBuilder: (context, index) => FoodCard(
+                          food: state.foods[index],
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => FoodDetail(
+                                  food: state.foods[index],
+                                ),
+                              ),
+                            );
+                          },
                         ),
-                      );
-                    },
-                  ),
-                  scrollDirection: Axis.horizontal,
-                ),
-              ),
+                        scrollDirection: Axis.horizontal,
+                      ),
+                    ),
+                  );
+                }
+                if (state is FoodsError) {
+                  return Container(
+                    alignment: Alignment.center,
+                    height: 250,
+                    child: const Text('Error'),
+                  );
+                }
+                return Container(
+                  alignment: Alignment.center,
+                  height: 250,
+                  child: const CircularProgressIndicator(),
+                );
+              },
             ),
           ],
         ),

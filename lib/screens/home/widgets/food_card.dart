@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import '../../../models/food_model.dart';
 
@@ -21,13 +22,13 @@ class FoodCard extends StatelessWidget {
         child: Stack(
           clipBehavior: Clip.hardEdge,
           children: [
-            Container(
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage(food.imagePath),
-                  fit: BoxFit.cover,
-                ),
-                borderRadius: BorderRadius.circular(10),
+            ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              clipBehavior: Clip.hardEdge,
+              child: CachedNetworkImage(
+                imageUrl: food.imageUri,
+                fit: BoxFit.cover,
+                errorWidget: (_, __, ___) => Container(color: Colors.grey),
               ),
             ),
             Container(

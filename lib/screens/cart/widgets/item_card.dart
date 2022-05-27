@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:delivery_app/models/cart_item.dart';
 import 'package:delivery_app/screens/cart/blocs/cart_bloc/cart_cubit.dart';
 import 'package:flutter/material.dart';
@@ -38,7 +39,7 @@ class ItemCard extends StatelessWidget {
             width: 50,
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
-              child: Image.asset(cartItem.food.imagePath),
+              child: CachedNetworkImage(imageUrl: cartItem.food.imageUri),
             ),
           ),
           Container(

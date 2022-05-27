@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:delivery_app/models/cart_item.dart';
 import 'package:flutter/material.dart';
 
@@ -28,7 +29,7 @@ class _FoodDetailState extends State<FoodDetail> {
             SizedBox(
               child: Stack(
                 children: <Widget>[
-                  Image.asset(widget.food.imagePath),
+                  CachedNetworkImage(imageUrl: widget.food.imageUri),
                   const DetailAppBar(),
                 ],
               ),
@@ -47,7 +48,7 @@ class _FoodDetailState extends State<FoodDetail> {
                     size: 20,
                   ),
                   Text(
-                    widget.food.ratings.toString(),
+                    widget.food.rating.toString(),
                     style: const TextStyle(
                       color: Colors.black,
                       fontSize: 14,
