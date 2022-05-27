@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "945737372884",
+    "project_id": "foodama-84b01",
+    "storage_bucket": "foodama-84b01.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:945737372884:android:5f02a90b251958e198d741",
+        "android_client_info": {
+          "package_name": "com.example.delivery_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "945737372884-p900377g7lp502v76cg4ap45l2cnabca.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC09c7KB1oS1qe5uJlFCFt8OXLS6CfWfZc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "945737372884-p900377g7lp502v76cg4ap45l2cnabca.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:945737372884:android:29df0d22bce06a3598d741",
+        "android_client_info": {
+          "package_name": "com.example.foodama"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "945737372884-p900377g7lp502v76cg4ap45l2cnabca.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC09c7KB1oS1qe5uJlFCFt8OXLS6CfWfZc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "945737372884-p900377g7lp502v76cg4ap45l2cnabca.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
