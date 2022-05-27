@@ -1,12 +1,13 @@
+import 'package:delivery_app/models/cart_item.dart';
+import 'package:delivery_app/screens/cart/blocs/cart_bloc/cart_cubit.dart';
 import 'package:flutter/material.dart';
-import '../../../models/food_model.dart';
-import '../../cart/cart_screen.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DetailNavBar extends StatelessWidget {
-  final FoodModel food;
+  final CartItem cartItem;
   const DetailNavBar({
     Key? key,
-    required this.food,
+    required this.cartItem,
   }) : super(key: key);
 
   @override
@@ -38,7 +39,7 @@ class DetailNavBar extends StatelessWidget {
                 ),
               ),
               Text(
-                '£ ${food.price}',
+                '\$${cartItem.count * cartItem.food.price}',
                 style: const TextStyle(
                   color: Colors.orange,
                   fontWeight: FontWeight.w500,
@@ -49,15 +50,7 @@ class DetailNavBar extends StatelessWidget {
           ),
           ElevatedButton(
             onPressed: () {
-              //another set state thingy happens too
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => CartScreen(
-                    food: food,
-                  ),
-                ),
-              );
+              BlocProvider.of<CartCubit>(context).add(cartItem);
             },
             style: ElevatedButton.styleFrom(
               primary: Colors.black,

@@ -1,9 +1,14 @@
+import 'package:delivery_app/models/cart_item.dart';
+import 'package:delivery_app/screens/cart/blocs/cart_bloc/cart_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ItemCard extends StatelessWidget {
   const ItemCard({
     Key? key,
+    required this.cartItem,
   }) : super(key: key);
+  final CartItem cartItem;
 
   @override
   Widget build(BuildContext context) {
@@ -33,24 +38,29 @@ class ItemCard extends StatelessWidget {
             width: 50,
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
-              child: Image.asset("assets/images/kitfo.jpeg"),
+              child: Image.asset(cartItem.food.imagePath),
             ),
           ),
           Container(
             margin: const EdgeInsets.symmetric(horizontal: 16),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: const [
+              children: [
                 Text(
-                  'Lunch',
-                  style: TextStyle(
+                  cartItem.food.category,
+                  style: const TextStyle(
                     color: Colors.grey,
                   ),
                 ),
-                Text('Kitfo', style: TextStyle(fontWeight: FontWeight.bold)),
                 Text(
-                  '\$15.00',
-                  style: TextStyle(color: Colors.orange),
+                  cartItem.food.name,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Text(
+                  '\$${cartItem.food.price}',
+                  style: const TextStyle(color: Colors.orange),
                 ),
               ],
             ),
@@ -74,15 +84,21 @@ class ItemCard extends StatelessWidget {
                   ),
                   child: IconButton(
                     iconSize: 15,
-                    onPressed: () {},
+                    onPressed: cartItem.count >= 1
+                        ? () {
+                            BlocProvider.of<CartCubit>(context)
+                                .remove(cartItem);
+                          }
+                        : null,
                     icon: const Icon(
                       Icons.remove,
                     ),
                   ),
                 ),
-                const Padding(
-                  padding: EdgeInsets.symmetric(vertical: 8, horizontal: 0),
-                  child: Text('1'),
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 8, horizontal: 0),
+                  child: Text('${cartItem.count}'),
                 ),
                 Container(
                   width: 30.0,
@@ -93,7 +109,9 @@ class ItemCard extends StatelessWidget {
                   ),
                   child: IconButton(
                     iconSize: 15,
-                    onPressed: () {},
+                    onPressed: () {
+                      BlocProvider.of<CartCubit>(context).add(cartItem);
+                    },
                     icon: const Icon(
                       Icons.add,
                     ),

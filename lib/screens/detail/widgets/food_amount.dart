@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
 
-class FoodAmount extends StatefulWidget {
+class FoodAmount extends StatelessWidget {
   const FoodAmount({
     Key? key,
+    required this.count,
+    required this.onAdd,
+    required this.onRemove,
   }) : super(key: key);
-
-  @override
-  State<FoodAmount> createState() => _FoodAmountState();
-}
-
-class _FoodAmountState extends State<FoodAmount> {
-  int numOfItems = 1;
-  final sum = 0;
+  final int count;
+  final ValueChanged<int> onAdd;
+  final ValueChanged<int> onRemove;
 
   @override
   Widget build(BuildContext context) {
@@ -33,9 +31,7 @@ class _FoodAmountState extends State<FoodAmount> {
             child: IconButton(
               iconSize: 15,
               onPressed: () {
-                setState(() {
-                  numOfItems++;
-                });
+                onAdd(count);
               },
               splashRadius: 2,
               icon: const Icon(
@@ -45,7 +41,7 @@ class _FoodAmountState extends State<FoodAmount> {
           ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 8),
-            child: Text(numOfItems.toString()),
+            child: Text('$count'),
           ),
           Container(
             width: 30.0,
@@ -56,13 +52,11 @@ class _FoodAmountState extends State<FoodAmount> {
             ),
             child: IconButton(
               iconSize: 15,
-              onPressed: () {
-                if (numOfItems > 1) {
-                  setState(() {
-                    numOfItems--;
-                  });
-                }
-              },
+              onPressed: count > 1
+                  ? () {
+                      onRemove(count);
+                    }
+                  : null,
               splashRadius: 2,
               icon: const Icon(
                 Icons.remove,

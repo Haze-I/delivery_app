@@ -22,7 +22,9 @@ class CartAppBar extends StatelessWidget {
           ),
           child: IconButton(
             iconSize: 15,
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pop(context);
+            },
             icon: const Icon(
               Icons.arrow_back_ios_new_outlined,
               color: Colors.black,

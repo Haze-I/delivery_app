@@ -1,3 +1,4 @@
+import 'package:delivery_app/models/cart_item.dart';
 import 'package:flutter/material.dart';
 
 import '../../models/food_model.dart';
@@ -7,11 +8,16 @@ import 'widgets/food_amount.dart';
 import 'widgets/food_description.dart';
 import 'widgets/food_title.dart';
 
-class FoodDetail extends StatelessWidget {
+class FoodDetail extends StatefulWidget {
+  const FoodDetail({Key? key, required this.food}) : super(key: key);
   final FoodModel food;
 
-  const FoodDetail({Key? key, required this.food}) : super(key: key);
+  @override
+  State<FoodDetail> createState() => _FoodDetailState();
+}
 
+class _FoodDetailState extends State<FoodDetail> {
+  int count = 1;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,12 +28,12 @@ class FoodDetail extends StatelessWidget {
             SizedBox(
               child: Stack(
                 children: <Widget>[
-                  Image.asset(food.imagePath),
+                  Image.asset(widget.food.imagePath),
                   const DetailAppBar(),
                 ],
               ),
             ),
-            FoodTitle(food: food),
+            FoodTitle(food: widget.food),
             Padding(
               padding: const EdgeInsets.symmetric(
                 horizontal: 16,
@@ -41,7 +47,7 @@ class FoodDetail extends StatelessWidget {
                     size: 20,
                   ),
                   Text(
-                    food.ratings.toString(),
+                    widget.food.ratings.toString(),
                     style: const TextStyle(
                       color: Colors.black,
                       fontSize: 14,
@@ -55,17 +61,31 @@ class FoodDetail extends StatelessWidget {
                     ),
                   ),
                   const Spacer(),
-                  const FoodAmount(),
+                  FoodAmount(
+                    count: count,
+                    onAdd: (prevCount) {
+                      setState(() {
+                        count = prevCount + 1;
+                      });
+                    },
+                    onRemove: (prevCount) {
+                      setState(() {
+                        count = prevCount - 1;
+                      });
+                    },
+                  ),
                 ],
               ),
             ),
-            FoodDescription(food: food),
+            FoodDescription(food: widget.food),
           ],
         ),
       ),
       bottomNavigationBar: DetailNavBar(
-        food: food,
-        // sum: numOfItems * food.price,
+        cartItem: CartItem(
+          count: count,
+          food: widget.food,
+        ),
       ),
     );
   }
