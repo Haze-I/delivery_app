@@ -22,14 +22,17 @@ class FoodCard extends StatelessWidget {
         child: Stack(
           clipBehavior: Clip.hardEdge,
           children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(10),
-              clipBehavior: Clip.hardEdge,
-              child: CachedNetworkImage(
-                errorWidget: (_, __, ___) => Container(color: Colors.grey),
-                fit: BoxFit.cover,
-                height: 240,
-                imageUrl: food.imageUri,
+            AspectRatio(
+              aspectRatio: 3 / 4,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                clipBehavior: Clip.hardEdge,
+                child: CachedNetworkImage(
+                  errorWidget: (_, __, ___) => Container(color: Colors.grey),
+                  fit: BoxFit.cover,
+                  height: 240,
+                  imageUrl: food.imageUri,
+                ),
               ),
             ),
             Container(
@@ -101,7 +104,7 @@ class FoodCard extends StatelessWidget {
                               height: 10,
                             ),
                             Text(
-                              '30 min | 1 serving',
+                              '1 serving   | 30 min',
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               style: Theme.of(context)
