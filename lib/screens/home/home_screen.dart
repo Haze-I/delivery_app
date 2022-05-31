@@ -2,9 +2,8 @@ import 'package:delivery_app/screens/home/blocs/foods_bloc/foods_cubit.dart';
 import 'package:delivery_app/screens/home/blocs/foods_bloc/foods_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../detail/food_detail.dart';
-import 'widgets/bottom_nav_bar.dart';
+
 import 'widgets/food_card.dart';
 import 'widgets/home_app_bar.dart';
 import 'widgets/tab_chip.dart';
@@ -18,6 +17,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final categories = [
+    'All',
     'Breakfast',
     'Vegan',
     'Oriental',
@@ -62,26 +62,38 @@ class _HomeScreenState extends State<HomeScreen> {
             BlocBuilder<FoodsCubit, FoodsState>(
               builder: (context, state) {
                 if (state is FoodsLoaded) {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: SizedBox(
-                      height: 250,
-                      child: ListView.builder(
-                        itemCount: state.foods.length,
+                  final foods = state.foods
+                      .where(
+                        (food) =>
+                            food.category.toLowerCase() ==
+                                categories[selectedIndex].toLowerCase() ||
+                            categories[selectedIndex].toLowerCase() == 'all',
+                      )
+                      .toList();
+                  return Expanded(
+                    child: RefreshIndicator(
+                      onRefresh: () =>
+                          BlocProvider.of<FoodsCubit>(context).getFoods(),
+                      child: GridView.builder(
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                        itemCount: foods.length,
                         itemBuilder: (context, index) => FoodCard(
-                          food: state.foods[index],
+                          food: foods[index],
                           onPressed: () {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
                                 builder: (context) => FoodDetail(
-                                  food: state.foods[index],
+                                  food: foods[index],
                                 ),
                               ),
                             );
                           },
                         ),
-                        scrollDirection: Axis.horizontal,
+                        scrollDirection: Axis.vertical,
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2, childAspectRatio: 3 / 4),
                       ),
                     ),
                   );
@@ -103,7 +115,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
       ),
-      bottomNavigationBar: const BottomNavBar(),
+      // bottomNavigationBar: const BottomNavBar(),
     );
   }
 }
