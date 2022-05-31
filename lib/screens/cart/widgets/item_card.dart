@@ -36,7 +36,7 @@ class ItemCard extends StatelessWidget {
             ),
           ),
           SizedBox(
-            width: 50,
+            width: 120,
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
               child: CachedNetworkImage(imageUrl: cartItem.food.imageUri),
@@ -81,7 +81,7 @@ class ItemCard extends StatelessWidget {
                   height: 30.0,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    color: Colors.grey.shade100,
+                    color: Colors.grey.shade200,
                   ),
                   child: IconButton(
                     iconSize: 15,
@@ -104,9 +104,9 @@ class ItemCard extends StatelessWidget {
                 Container(
                   width: 30.0,
                   height: 30.0,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     shape: BoxShape.circle,
-                    color: Colors.blue.shade100,
+                    color: Color.fromARGB(255, 11, 48, 79),
                   ),
                   child: IconButton(
                     iconSize: 15,
@@ -114,6 +114,7 @@ class ItemCard extends StatelessWidget {
                       BlocProvider.of<CartCubit>(context).add(cartItem);
                     },
                     icon: const Icon(
+                      color: Colors.white,
                       Icons.add,
                     ),
                   ),
