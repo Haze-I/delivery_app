@@ -36,7 +36,7 @@ class ItemCard extends StatelessWidget {
             ),
           ),
           SizedBox(
-            width: 120,
+            width: 115,
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
               child: CachedNetworkImage(imageUrl: cartItem.food.imageUri),
@@ -113,7 +113,7 @@ class ItemCard extends StatelessWidget {
                     onPressed: () {
                       BlocProvider.of<CartCubit>(context).add(cartItem);
                     },
-                    icon: const Icon(
+                    icon: Icon(
                       color: Colors.white,
                       Icons.add,
                     ),
