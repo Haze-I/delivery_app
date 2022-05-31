@@ -23,63 +23,72 @@ class _FoodDetailState extends State<FoodDetail> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(
-              child: Stack(
+        child: SingleChildScrollView(
+          physics: const AlwaysScrollableScrollPhysics(
+            parent: BouncingScrollPhysics(),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Stack(
                 children: <Widget>[
-                  CachedNetworkImage(imageUrl: widget.food.imageUri),
+                  CachedNetworkImage(
+                    imageUrl: widget.food.imageUri,
+                    height: 350,
+                    width: MediaQuery.of(context).size.width,
+                    fit: BoxFit.cover,
+                    alignment: Alignment.center,
+                  ),
                   const DetailAppBar(),
                 ],
               ),
-            ),
-            FoodTitle(food: widget.food),
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 16,
-                vertical: 0,
-              ),
-              child: Row(
-                children: [
-                  const Icon(
-                    Icons.star,
-                    color: Colors.yellow,
-                    size: 20,
-                  ),
-                  Text(
-                    widget.food.rating.toString(),
-                    style: const TextStyle(
-                      color: Colors.black,
-                      fontSize: 14,
+              FoodTitle(food: widget.food),
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 0,
+                ),
+                child: Row(
+                  children: [
+                    const Icon(
+                      Icons.star,
+                      color: Colors.yellow,
+                      size: 20,
                     ),
-                  ),
-                  const Text(
-                    '  (432 Reviews)',
-                    style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 14,
+                    Text(
+                      widget.food.rating.toString(),
+                      style: const TextStyle(
+                        color: Colors.black,
+                        fontSize: 14,
+                      ),
                     ),
-                  ),
-                  const Spacer(),
-                  FoodAmount(
-                    count: count,
-                    onAdd: (prevCount) {
-                      setState(() {
-                        count = prevCount + 1;
-                      });
-                    },
-                    onRemove: (prevCount) {
-                      setState(() {
-                        count = prevCount - 1;
-                      });
-                    },
-                  ),
-                ],
+                    const Text(
+                      '  (432 Reviews)',
+                      style: TextStyle(
+                        color: Colors.grey,
+                        fontSize: 14,
+                      ),
+                    ),
+                    const Spacer(),
+                    FoodAmount(
+                      count: count,
+                      onAdd: (prevCount) {
+                        setState(() {
+                          count = prevCount + 1;
+                        });
+                      },
+                      onRemove: (prevCount) {
+                        setState(() {
+                          count = prevCount - 1;
+                        });
+                      },
+                    ),
+                  ],
+                ),
               ),
-            ),
-            FoodDescription(food: widget.food),
-          ],
+              FoodDescription(food: widget.food),
+            ],
+          ),
         ),
       ),
       bottomNavigationBar: DetailNavBar(
