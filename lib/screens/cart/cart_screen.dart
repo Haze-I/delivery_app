@@ -2,8 +2,6 @@ import 'package:delivery_app/screens/cart/blocs/cart_bloc/cart_cubit.dart';
 import 'package:delivery_app/screens/cart/blocs/cart_bloc/cart_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../models/food_model.dart';
 import 'widgets/cart_app_bar.dart';
 import 'widgets/cart_bottom_nav.dart';
 import 'widgets/item_card.dart';

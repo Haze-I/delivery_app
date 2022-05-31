@@ -2,6 +2,7 @@ import 'package:delivery_app/screens/cart/blocs/cart_bloc/cart_cubit.dart';
 import 'package:delivery_app/screens/cart/blocs/cart_bloc/cart_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../checkout/checkout_screen.dart';
 
 class CartNav extends StatelessWidget {
   const CartNav({
@@ -48,7 +49,14 @@ class CartNav extends StatelessWidget {
               ],
             ),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const CheckoutScreen(),
+                  ),
+                );
+              },
               style: ElevatedButton.styleFrom(
                 primary: Colors.black,
                 onPrimary: Colors.white,
@@ -58,7 +66,7 @@ class CartNav extends StatelessWidget {
                 ),
               ),
               child: const Text(
-                'Check Out',
+                'Check out',
                 style: TextStyle(
                   fontWeight: FontWeight.w600,
                 ),
